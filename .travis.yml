@@ -1,0 +1,14 @@
+language: cpp
+before_script:
+- sudo apt-get update -qq
+script:
+- clang++ -Wall -std=c++14 ./main.cpp -o out.exe
+
+deploy:
+    provider: script
+    skip_cleanup: true
+    script:
+- curl -T hw01-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -d2mitryev:$BINTRAY_API_KEY "https://api.bintray.com/content/d2mitryev/otus/hw01/$TRAVIS_BUILD_NUMBER/hw01-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architectrure=amd64;publish=1"
+
+
+os: linux
